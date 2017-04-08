@@ -90,7 +90,7 @@ coverList_el.innerHTML += inner_html_code;
 // 3.1.0 상태 변수 설정
 // 현재 사용자에게 보여지는 커버의 인덱스 번호는?
 var index = 0;
-console.log('index:', index);
+// console.log('index:', index);
 // 커버 이미지 리스트 요소의 이동하는 거리?
 var distance = 400;
 
@@ -106,8 +106,8 @@ var next_btn   = controller.querySelector('.is-next');
 prev_btn.onclick = function() {
   // index = index - 1;
   index--;
-  console.log('index:', index);
-  console.log('index < 0:', index < 0);
+  // console.log('index:', index);
+  // console.log('index < 0:', index < 0);
     if ( index < 0 ) {
       // 함수 종료
       // return;
@@ -119,8 +119,8 @@ prev_btn.onclick = function() {
 next_btn.onclick = function() {
   // index = index + 1;
   index++; // 10
-  console.log('index:', index);
-  console.log('index === coverList.length:', index === coverList.length);
+  // console.log('index:', index);
+  // console.log('index === coverList.length:', index === coverList.length);
   if ( index === coverList.length ) {
     // 함수 종료
     // return;
@@ -147,7 +147,35 @@ var k = coverList.length,
 
 for( ; --k > -1; ) {
   var label = coverList[k].alt;
-  indicators_html.push('<a href role="button" class="indicator" aria-label="'+label+'"></a>');
+  indicators_html.push('<a href role="tab" class="indicator" aria-label="'+label+'"></a>');
 }
 
-console.log(indicators_html.reverse().join(''));
+indicators.innerHTML = indicators_html.reverse().join('');
+
+// 초기화 과정 수행
+// 첫번째(index = 0) 인디케이터에 활성화 클래스를 적용
+var indicatros_tabs = indicators.querySelectorAll('a');
+var active_indicator = indicatros_tabs[index];
+active_indicator.classList.add('is-active');
+
+// 인디케이터 <a> 요소 집합(Nodelist)에 이벤트 핸들링
+for ( var j = 0, h = indicatros_tabs.length; j < h; j++ ) {
+  var tab = indicatros_tabs[j];
+  // 탭 객체에 새로운 속성 index를 추가한 후,
+  // 순환문이 돌 때의 현재 시점의 j 값을 index 속성에 복사해둔다.
+  tab.index = j;
+  tab.onclick = function(event) {
+    // 웹 브라우저 기본(default) 동작 차단(prevent)
+    // event.preventDefault();
+    event.preventDefault();
+    // 사용자가 클릭했을 때, 각각의 탭에 기억되어 있는 index 값을
+    // 정상적으로 출력해줄 수 있다.
+    index = this.index;
+    // 기존에 활성화되어 있던 탭의 활성화 클래스를 제거한다.
+    this.parentNode.querySelector('.is-active').classList.remove('is-active');
+    // 클릭한 탭에 활성화 클래스 is-active를 추가한다.
+    this.classList.add('is-active');
+    // 변경된 index 값으로 슬라이드가 이동된다.
+    coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+  };
+}

@@ -113,8 +113,7 @@ body {
 }
 
 .indicator:hover::before,
-.indicator:focus::before,
-.indicator.is-active::before {
+.indicator:focus::before {
   content: attr(aria-label);
   position: absolute;
   left: 50%;
@@ -125,4 +124,9 @@ body {
   text-shadow: 0 0 10px hsla(0, 0%, 0%, 0.5);
   font-weight: 600;
   transform: translateX(-50%);
+}
+
+.indicator.is-active:hover::before,
+.indicator.is-active:focus::before {
+  content: '';
 }
