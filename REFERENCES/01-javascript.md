@@ -2,6 +2,8 @@
 
 ## 자바스크립트(JavaScript)
 
+출처 http://poiemaweb.com/
+
 ![](images/JavaScript.png)
 
 Javascript는 HTML, CSS와 함께 웹을 구성하는 요소중 하나로 웹브라우저에서 동작하는 유일한 언어이다.

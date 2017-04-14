@@ -1,5 +1,7 @@
 [← Back](README.md)
 
+출처 http://poiemaweb.com/
+
 ## 자바스크립트 데이터 유형(Data type) & 변수(Variable)
 
 #### 1. Data Type (자료형)
