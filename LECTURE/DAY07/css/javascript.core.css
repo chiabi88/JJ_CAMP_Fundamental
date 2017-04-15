@@ -10,12 +10,10 @@
   width: 100%;
   height: auto;
 }
-
 .is-button {
   border: none;
   background: none;
 }
-
 body {
   margin: 0;
   display: flex;
@@ -36,7 +34,6 @@ body {
 .music-cover-item {
   flex: 1 0 400px;
 }
-
 .player-controller {
   position: absolute;
   top: 0;
@@ -44,7 +41,6 @@ body {
   bottom: 0;
   left: 0;
 }
-
 .player-controller .button {
   position: absolute;
   top: 50%;
@@ -57,19 +53,15 @@ body {
   opacity: 0.5;
   transition: all 0.4s;
 }
-
-.player-controller .button:hover,
-.player-controller .button:focus {
+.player-controller .button:hover, .player-controller .button:focus {
   opacity: 1;
 }
-
 .player-controller .button:focus {
   box-shadow: 0 0 0px 3px #474cc5;
 }
 .player-controller .button:active {
   box-shadow: none;
 }
-
 .player-controller .is-prev {
   left: 10px;
   background-position: 0 0;
@@ -78,7 +70,6 @@ body {
   right: 10px;
   background-position: 100% 0;
 }
-
 .player-indicators {
   position: absolute;
   z-index: 100;
@@ -86,7 +77,6 @@ body {
   left: 50%;
   transform: translateX(-50%);
 }
-
 .indicator {
   opacity: 0.5;
   cursor: pointer;
@@ -100,20 +90,16 @@ body {
   font-size: 14px;
   transition: all .3s ease;
 }
-.indicator:hover,
-.indicator:focus {
+.indicator:hover, .indicator:focus {
   opacity: 1;
   background: #fff;
 }
-
 .indicator.is-active {
   opacity: 1;
   background: #fff;
   transform: scale(1.6);
 }
-
-.indicator:hover::before,
-.indicator:focus::before {
+.indicator:hover::before, .indicator:focus::before {
   content: attr(aria-label);
   position: absolute;
   left: 50%;
@@ -125,8 +111,6 @@ body {
   font-weight: 600;
   transform: translateX(-50%);
 }
-
-.indicator.is-active:hover::before,
-.indicator.is-active:focus::before {
+.indicator.is-active:hover::before, .indicator.is-active:focus::before {
   content: '';
 }

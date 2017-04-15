@@ -71,7 +71,7 @@ for ( var i=0, l=coverList.length; i<l; ++i ) {
   // console.log(i);
   // console.log(coverList[i]); // 커버 이미지 경로
   // [{src:"001.EdSheeran-ShapeOfYou.jpg", alt:""}]
-  var src = 'media/cover/' + coverList[i].src;
+  var src = '../media/cover/' + coverList[i].src;
   var alt = coverList[i].alt;
   // console.log(src);
   // coverList_el // <ul> <- <li>
