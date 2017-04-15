@@ -64,7 +64,8 @@ var cover;
 // Controller
 
 // 템플릿
-var template;
+var template = [];
+
 for ( ; i<l; i=i+1 ) {
   cover = coverList[i];
   src = '../media/cover/' + cover.src;
@@ -83,15 +84,15 @@ for ( ; i<l; i=i+1 ) {
   // 배열객체.조인(join) 메서드
   // \n => newline
   // \t => tab
-  template = [
+  template = template.concat([
     '<li class="music-cover-item">',
       '<img class="music-cover is-rwd" src="'+ src +'" alt="'+ alt +'">',
     '</li>'
-  ].join('');
+  ]);
 }
 
-// coverList_el.innerHTML += inner_html_code;
-coverList_el.innerHTML += template;
+// coverList_el.innerHTML += inner_html_code; // 문자 데이터 사용
+coverList_el.innerHTML += template.join('');  // 배열 -> 문자 데이터 사용
 
 // --------------------------------------------------------------------------------------------
 
@@ -104,12 +105,14 @@ var next_btn   = controller.querySelector('.is-next');
 
 prev_btn.onclick = function() {
   if ( --index < 0 ) { index = coverList.length - 1; }
-  coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+  // coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+  indicatros_tabs[index].onclick();
 };
 
 next_btn.onclick = function() {
   if ( ++index === coverList.length ) { index = 0; }
-  coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+  // coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+  indicatros_tabs[index].onclick();
 };
 
 // --------------------------------------------------------------------------------------------
@@ -137,10 +140,19 @@ active_indicator.classList.add('is-active');
 for ( ; j < h; j++ ) {
   tab = indicatros_tabs[j];
   tab.index = j;
-  tab.onclick = function(event) {
+  // console.log('tab:', tab);
+  // tab.onclick = function(event) {
+  tab.onclick = function() {
+    // 브라우저 기본 동작 차단
+    // event.preventDefault();
     index = this.index;
     this.parentNode.querySelector('.is-active').classList.remove('is-active');
     this.classList.add('is-active');
     coverList_el.style.transform = 'translateX(' + index * -1 * distance + 'px)';
+    // 브라우저 기본 동작 차단
+    return false;
   };
 }
+
+// 시뮬레이션 (마치 사용자가 클릭한 것처럼)
+// indicatros_tabs[5].onclick();
