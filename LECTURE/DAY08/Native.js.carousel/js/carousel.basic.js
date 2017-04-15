@@ -68,7 +68,7 @@ var template = [];
 
 for ( ; i<l; i=i+1 ) {
   cover = coverList[i];
-  src = '../media/cover/' + cover.src;
+  src = '../../media/cover/' + cover.src;
   alt = cover.alt;
 
   // 템플릿 사용 방법 1 - 문자 사용
