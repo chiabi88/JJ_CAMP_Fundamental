@@ -1,6 +1,7 @@
 /*! carousel.basic.js © yamoo9.net, 2017 */
 
-// 커버 데이터
+// 커버 데이터(데이터베이스 내부에 저장)
+// 클라이언트(사용자 환경: 웹 브라우저, 스마트폰 웹뷰): 요청 <-> 서버(데이터베이스, 자료)
 var coverList = [
   {
     src: "001.EdSheeran-ShapeOfYou.jpg",
@@ -46,24 +47,51 @@ var coverList = [
 
 // --------------------------------------------------------------------------------------------
 
+// DOM API
+// 문서 객체 모델
+// 변수 참조
 var coverList_el = document.querySelector('.music-coverlist');
 
-// 템플릿
 var i = 0;
-var l = coverList.length;
+var l = coverList.length; // 10
 var inner_html_code = '';
 var src;
 var alt;
+var cover;
 
-for ( ; i<l; ++i ) {
-  src = '../media/cover/' + coverList[i].src;
-  alt = coverList[i].alt;
-  inner_html_code += '<li class="music-cover-item">';
-  inner_html_code +=    '<img class="music-cover is-rwd" src="'+ src +'" alt="'+ alt +'">';
-  inner_html_code += '</li>';
+// MVC, MVP, MVVM, MVW
+// Model + Template(HTML + CSS) = View
+// Controller
+
+// 템플릿
+var template;
+for ( ; i<l; i=i+1 ) {
+  cover = coverList[i];
+  src = '../media/cover/' + cover.src;
+  alt = cover.alt;
+
+  // 템플릿 사용 방법 1 - 문자 사용
+  // inner_html_code += '<li class="music-cover-item">';
+  // inner_html_code +=   '<img class="music-cover is-rwd" src="'+ src +'" alt="'+ alt +'">';
+  // inner_html_code += '</li>';
+
+  // 템플릿 사용 방법 2 - 배열 사용
+  // Method: 객체가 소유한 함수
+  // 날다(fly): 함수
+  // 새.날다(bird.fly()): 새(객체)가 소유한 메서드(수행가능한 일)
+
+  // 배열객체.조인(join) 메서드
+  // \n => newline
+  // \t => tab
+  template = [
+    '<li class="music-cover-item">',
+      '<img class="music-cover is-rwd" src="'+ src +'" alt="'+ alt +'">',
+    '</li>'
+  ].join('');
 }
 
-coverList_el.innerHTML += inner_html_code;
+// coverList_el.innerHTML += inner_html_code;
+coverList_el.innerHTML += template;
 
 // --------------------------------------------------------------------------------------------
 
