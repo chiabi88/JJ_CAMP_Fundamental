@@ -18,8 +18,18 @@ jQuery(function($){
    * --------------------------------
    * 이벤트 바인딩 <-> 핸들러
    */
+  $m_button.on('click', toggleGnb);
   $cart_button.on('click', toggleCartMenu);
+  $dim.on('click', closeMenu);
 
+  /**
+   * --------------------------------
+   * 이벤트 핸들러 정의
+   */
+  function toggleGnb() {
+    $gnb.toggleClass('out-in');
+    $dim.toggle(); // show <-> hide
+  }
   function toggleCartMenu() {
     // console.log('toggleCartMenu');
     // 비즈니스 로직(구현할 코드)
@@ -32,6 +42,14 @@ jQuery(function($){
       $dim.show();
       $cart_menu.addClass('out-in');
     }
+  }
+
+  function closeMenu() {
+    // dim은 사라진다. (hide)
+    $dim.hide();
+    // 카트 메뉴도 밖으로 이동한다. (out-in 클래스 제거)
+    $gnb.removeClass('out-in');
+    $cart_menu.removeClass('out-in');
   }
 
 });
