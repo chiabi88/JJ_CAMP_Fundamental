@@ -11,11 +11,24 @@
 </head>
 <body>
 
+
   <div class="container">
     <!-- 동적 코드 추가 -->
   </div>
 
   <!-- .box 요소 추가 -->
 
+  <button type="button" class="ajax-call-button">Ajax Call</button>
+
+<script>
+  $('.ajax-call-button').on('click', function() {
+    $.get('https://unsplash.it/list')
+     .done(function(data) {
+      $.each(data, function(index, item) {
+        console.log(item.author);
+      })
+     });
+  })
+</script>
 </body>
 </html>
