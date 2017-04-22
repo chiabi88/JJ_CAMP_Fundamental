@@ -107,6 +107,7 @@
 // --------------------------------------------
 
 jQuery(function($) {
+  var intervalId = 0;
   // body
   var $body = $(document.body);
   // box
@@ -115,13 +116,21 @@ jQuery(function($) {
   // infinite play
   var $play_btn = $('<button type="button" class="button infinite-play-button">infinite play</button>').insertBefore($box);
   // stop
-  // $('<button type="button" class="button stop-button">stop</button>').insertAfter();
-  var $stop_btn = $box.after('<button type="button" class="button stop-button">stop</button>');
+  var $stop_btn = $('<button type="button" class="button stop-button">stop</button>').insertAfter($box);
+  // var $stop_btn = $box.after('<button type="button" class="button stop-button">stop</button>');
+
+  // console.log('$stop_btn:', $stop_btn);
 
   $box.on('click', transformBox);
 
   $play_btn.on('click', function() {
-    window.setInterval(transformBox, 1000);
+    intervalId = window.setInterval(transformBox, 1000);
+    console.log('intervalId:', intervalId);
+  });
+
+  $stop_btn.on('click', function() {
+    console.log('intervalId in $stop_btn:', intervalId);
+    window.clearInterval(intervalId);
   });
 
   function transformBox() {
