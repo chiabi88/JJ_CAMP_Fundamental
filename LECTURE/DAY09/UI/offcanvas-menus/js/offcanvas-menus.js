@@ -13,43 +13,53 @@ jQuery(function($){
   var $cart_menu   = $('.y9-cart');
   // 딤
   var $dim         = $('.y9-shadow-layer');
+  // 현재 사용자 화면에 표시되는 활성화 요소 (기억)
+  var $activated   = null;
+
+  console.log('$activated:', $activated);
 
   /**
    * --------------------------------
    * 이벤트 바인딩 <-> 핸들러
    */
-  $m_button.on('click', toggleGnb);
-  $cart_button.on('click', toggleCartMenu);
-  $dim.on('click', closeMenu);
+  $m_button.on('click', function() {
+    closeMenu($activated);
+    toggleMenu($gnb);
+  });
+  $cart_button.on('click', function() {
+    closeMenu($activated);
+    toggleMenu($cart_menu);
+  });
+  $dim.on('click', function() {
+    closeMenu($activated);
+  });
 
   /**
    * --------------------------------
    * 이벤트 핸들러 정의
    */
-  function toggleGnb() {
-    $gnb.toggleClass('out-in');
+  function toggleMenu($target) {
+    $activated = $target;
+    $target.toggleClass('out-in');
     $dim.toggle(); // show <-> hide
-  }
-  function toggleCartMenu() {
-    // console.log('toggleCartMenu');
-    // 비즈니스 로직(구현할 코드)
-    // 카트 메뉴를 밖에서 안으로 이동시킨다.
-    if ( $cart_menu.hasClass('out-in') ) {
-      $dim.hide();
-      $cart_menu.removeClass('out-in');
-    } else {
-      // 딤처리를 한다.
-      $dim.show();
-      $cart_menu.addClass('out-in');
-    }
+    console.log('$activated:', $activated);
   }
 
-  function closeMenu() {
-    // dim은 사라진다. (hide)
+  function closeMenu($activated_target) {
+    if ( !$activated_target ) { return; } // 종료
+    // if ( $activated_target ) {
+    //   console.log('$activated_target 있다');
+    // } else {
+    //   console.log('$activated_target 없다');
+    // }
+
+    // return;
+
     $dim.hide();
-    // 카트 메뉴도 밖으로 이동한다. (out-in 클래스 제거)
-    $gnb.removeClass('out-in');
-    $cart_menu.removeClass('out-in');
+    $activated_target.removeClass('out-in');
+    // $activated 초기화
+    $activated = null;
+    console.log('$activated:', $activated);
   }
 
 });
