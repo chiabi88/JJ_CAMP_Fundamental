@@ -54,7 +54,7 @@ JavaScript & jQuery 첫걸음 캠프 [:link:](http://www.fastcampus.co.kr/dev_ca
 
 ## 레퍼런스 :books:
 
-- [자바스크립트 첫걸음](REFERENCES/README.md)
 - [MDN, JavaScript](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 - [비개발자를 위한 Javascript 알아가기](http://www.slideshare.net/ibare/javascript-1-33928468?ref=http://m.cafe.daum.net/aspdotnet/5zmE/153?boardType=U&q=D_wmj6O-wN3vs0&)
+- [poiemaweb.com](http://poiemaweb.com/)
 
