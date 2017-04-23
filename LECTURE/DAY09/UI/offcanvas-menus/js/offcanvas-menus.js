@@ -16,19 +16,15 @@ jQuery(function($){
   // 현재 사용자 화면에 표시되는 활성화 요소 (기억)
   var $activated   = null;
 
-  console.log('$activated:', $activated);
-
   /**
    * --------------------------------
    * 이벤트 바인딩 <-> 핸들러
    */
   $m_button.on('click', function() {
-    closeMenu($activated);
-    toggleMenu($gnb);
+    crossMenuControl($gnb);
   });
   $cart_button.on('click', function() {
-    closeMenu($activated);
-    toggleMenu($cart_menu);
+    crossMenuControl($cart_menu);
   });
   $dim.on('click', function() {
     closeMenu($activated);
@@ -38,28 +34,30 @@ jQuery(function($){
    * --------------------------------
    * 이벤트 핸들러 정의
    */
+  function crossMenuControl($target) {
+    var $cross_target = $target.is($gnb) ? $cart_menu : $gnb;
+    if ( $activated ) {
+      if ( $activated.is($cross_target) ) {
+        window.setTimeout(function() {
+          toggleMenu($target);
+        }, 0);
+      }
+      closeMenu($activated);
+    } else {
+      toggleMenu($target);
+    }
+  }
   function toggleMenu($target) {
     $activated = $target;
     $target.toggleClass('out-in');
     $dim.toggle(); // show <-> hide
-    console.log('$activated:', $activated);
   }
-
   function closeMenu($activated_target) {
     if ( !$activated_target ) { return; } // 종료
-    // if ( $activated_target ) {
-    //   console.log('$activated_target 있다');
-    // } else {
-    //   console.log('$activated_target 없다');
-    // }
-
-    // return;
-
     $dim.hide();
     $activated_target.removeClass('out-in');
     // $activated 초기화
     $activated = null;
-    console.log('$activated:', $activated);
   }
 
 });
