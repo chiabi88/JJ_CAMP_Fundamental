@@ -7,6 +7,41 @@
 </head>
 <body>
 
+<script src="../../Library/jquery-3.2.1.min.js"></script>
+<script>
+  // 서버에서 제공해주는 데이터(JSON 포멧)
+  var naver_movie_api = [
+    'https://api.myjson.com/bins/1cvje9',
+    'https://api.myjson.com/bins/13y1bl',
+    'https://api.myjson.com/bins/1h1kmp'
+  ];
 
+  // jQuery 라이브러리 Ajax 메서드를 사용하여 데이터를 로드하고 사용
+  jQuery(function($) {
+    // $는 안정적으로 jQuery를 가리킨다.
+
+    // jQuery Version 검증
+    console.log('$().jquery:', $().jquery);
+
+    // jQuery.ajax() 메서드 API 확인
+
+    // 단축 메서드
+    // http://api.jquery.com/jQuery.get/
+    $.get( naver_movie_api[0], function(response) {
+      console.log(1, response.items);
+    } );
+
+    // $.ajax() 메서드
+    // http://api.jquery.com/jQuery.ajax/
+    var $xhr = $.ajax({
+      url: naver_movie_api[1]
+    })
+    // 통신 성공할 경우, 호출되어 실행
+    .done(function(response) {
+      console.log(2, response);
+    });
+
+  });
+</script>
 </body>
 </html>
