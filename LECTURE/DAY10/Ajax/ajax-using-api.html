@@ -2,6 +2,7 @@
 <html lang="ko-KR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <title>Ajax 비동기 통신 - API 활용</title>
   <style>
@@ -14,7 +15,7 @@
     }
     .container {
       width: 90vw;
-      min-width: 960px;
+      /*min-width: 960px;*/
       margin-top: 3rem;
       margin-left: auto;
       margin-right: auto;
@@ -30,6 +31,9 @@
       padding: 0.56rem 0.85rem;
       background: #fc414b;
       color: #fff;
+    }
+    .button.is-ajax-call:disabled {
+      background: #c6b5b5;
     }
     .movie-list {
       list-style: none;
@@ -52,6 +56,8 @@
     .movie-poster {
       float: left;
       margin-right: 1.4rem;
+      border: 1px solid #fc4a54;
+      padding: 0.45rem;
     }
     .movie-title {
       margin: 0;
@@ -79,16 +85,6 @@
     <!-- 무비 리스트 출력 -->
     <ul class="movie-list">
       <!-- 전송받은 데이터를 출력할 템플릿 -->
-      <li class="movie-list__item">
-        <a target="_blank" href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=154689">
-          <img
-            class="movie-poster"
-            src="http://imgmovie.naver.com/mdi/mit110/1546/154689_P01_154227.jpg" alt>
-          <h3 class="movie-title">닌자<b>고양이</b></h3>
-          <h4 class="movie-subtitle">猫忍</h4>
-          <sub class="movie-pubdate">2017</sub>
-        </a>
-      </li>
     </ul>
   </div>
 
@@ -118,14 +114,66 @@
 
     // $.ajax() 메서드
     // http://api.jquery.com/jQuery.ajax/
-    var $xhr = $.ajax({
-      url: naver_movie_api[1]
-    })
-    // 통신 성공할 경우, 호출되어 실행
-    .done(function(response) {
-      console.log(2, response);
-    });
+    // var $xhr = $.ajax({
+    //   url: naver_movie_api[1]
+    // })
+    // // 통신 성공할 경우, 호출되어 실행
+    // .done(function(response) {
+    //   console.log(2, response);
+    // });
 
+    // 버튼 탐색
+    var $ajax_btn = $('.button.is-ajax-call');
+    var page = 0;
+    // 버튼 이벤트 핸들링
+    $ajax_btn.on('click', loadMovieData);
+    // 비동기 통신을 수행할 헨들러(함수) 작성
+    function loadMovieData() {
+      // naver_movie_api[page] 정보 값이 더 이상 존재하지 않는다면
+      // console.log('naver_movie_api[page]:', naver_movie_api[page]);
+      var isover_page = page > (naver_movie_api.length - 1);
+      if ( page > (naver_movie_api.length - 1) ) {
+        // 버튼 비활성화
+        // 속성: Attribute
+        // $ajax_btn.attr('속성이름', '속성 값');
+        // 참고 URL: http://api.jquery.com/attr/
+        // $ajax_btn.attr('disabled', 'disabled');
+        // 함수 종료
+        return;
+      }
+      // 버튼 비활성화, 함수 종료
+      // naver_movie_api[page] 정보값이 존재한다면 수행
+      $.ajax(naver_movie_api[page])
+       .done(function(response) {
+        // HTML 템플릿에 조립하여 화면에 뷰를 그릴 함수를 호출
+        renderStructure(response.items);
+        if ( page > (naver_movie_api.length - 1) ) {
+          $ajax_btn.attr('disabled', 'disabled');
+        }
+       });
+      page += 1;
+    }
+
+    function renderStructure(items) {
+      // TASK
+      // 템플릿 코드 작성
+      // 전달받은 items를 순환하여
+      // 템플릿 코드에 데이터 바인딩(연결)
+      // DOM 에 완성된 뷰 코드를 적용
+
+      console.log(items);
+
+      // <li class="movie-list__item">
+      //   <a target="_blank" href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=154689">
+      //     <img
+      //       class="movie-poster"
+      //       src="http://imgmovie.naver.com/mdi/mit110/1546/154689_P01_154227.jpg" alt>
+      //     <h3 class="movie-title">닌자<b>고양이</b></h3>
+      //     <h4 class="movie-subtitle">猫忍</h4>
+      //     <sub class="movie-pubdate">2017</sub>
+      //   </a>
+      // </li>
+    }
   });
 </script>
 </body>
