@@ -32,13 +32,27 @@
       background: #fc414b;
       color: #fff;
     }
+    .header.is-fixed {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid hsla(0, 0%, 86%, 0.65);
+      padding: 2rem;
+      text-align: right;
+      background: hsla(0, 0%, 100%, 0.45);
+    }
+    .header.is-blur {
+      backdrop-filter: blur(3px);
+    }
     .button.is-ajax-call:disabled {
       background: #c6b5b5;
     }
     .movie-list {
       list-style: none;
       border-radius: 4px;
-      margin-top: 3rem;
+      margin-top: 8rem;
       padding: 2rem;
       border: 4px solid #fc414b;
     }
@@ -81,7 +95,9 @@
 
   <div class="container">
     <!-- 비동기 통신으로 무비 데이터 요청 버튼 -->
-    <button type="button" class="button is-ajax-call">NAVER 영화 데이터 GET</button>
+    <div class="header is-fixed is-blur">
+      <button type="button" class="button is-ajax-call">NAVER 영화 데이터 GET</button>
+    </div>
     <!-- 무비 리스트 출력 -->
     <ul class="movie-list">
       <!-- 전송받은 데이터를 출력할 템플릿 -->
@@ -124,6 +140,7 @@
 
     // 버튼 탐색
     var $ajax_btn = $('.button.is-ajax-call');
+    var $movie_list = $('.movie-list');
     var page = 0;
     // 버튼 이벤트 핸들링
     $ajax_btn.on('click', loadMovieData);
@@ -160,19 +177,35 @@
       // 전달받은 items를 순환하여
       // 템플릿 코드에 데이터 바인딩(연결)
       // DOM 에 완성된 뷰 코드를 적용
+      var html_code = '';
+      $.each(items, function(index, item){
+        // console.log(item.link);
+        // console.log(item.image);
+        // console.log(item.title);
+        // console.log(item.subtitle);
+        // console.log(item.pubDate);
+        var $template = $('<li class="movie-list__item">\
+          <a target="_blank" href="'+ item.link +'">\
+            <img\
+              class="movie-poster"\
+              width="110"\
+              src="'+ (item.image || "http://placehold.it/110x158/fd414b/7d2025/?text=Poster") +'" alt>\
+            <h3 class="movie-title">'+ item.title +'</b></h3>\
+            <h4 class="movie-subtitle">'+ item.subtitle +'</h4>\
+            <sub class="movie-pubdate">'+ item.pubDate +'</sub>\
+          </a>\
+        </li>');
+        html_code += $template[0].outerHTML;
+      });
 
-      console.log(items);
+      // console.log('$movie_list:', $movie_list);
+      // 기존 코드를 지우고, 새로운 코드로 덮어쓰는 문제 발생
+      // $movie_list.html(html_code);
 
-      // <li class="movie-list__item">
-      //   <a target="_blank" href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=154689">
-      //     <img
-      //       class="movie-poster"
-      //       src="http://imgmovie.naver.com/mdi/mit110/1546/154689_P01_154227.jpg" alt>
-      //     <h3 class="movie-title">닌자<b>고양이</b></h3>
-      //     <h4 class="movie-subtitle">猫忍</h4>
-      //     <sub class="movie-pubdate">2017</sub>
-      //   </a>
-      // </li>
+      // 문제 해결을 위해 API를 참고하여 덮어쓰는 문제 해결
+      $movie_list.html(function(index, old_html) {
+        return old_html + html_code;
+      });
     }
   });
 </script>
