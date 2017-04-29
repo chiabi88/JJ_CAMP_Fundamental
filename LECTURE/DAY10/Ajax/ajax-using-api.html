@@ -38,13 +38,14 @@
       top: 0;
       left: 0;
       right: 0;
-      border-bottom: 1px solid hsla(0, 0%, 86%, 0.65);
+      box-shadow: inset 0 1px hsla(0, 0%, 100%, 0.75);
+      border-bottom: 1px solid hsla(0, 0%, 80%, 0.45);
       padding: 2rem;
       text-align: right;
-      background: hsla(0, 0%, 100%, 0.45);
+      background: hsla(0, 0%, 100%, 0.85);
     }
     .header.is-blur {
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(2px);
     }
     .button.is-ajax-call:disabled {
       background: #c6b5b5;
@@ -144,6 +145,9 @@
     var page = 0;
     // 버튼 이벤트 핸들링
     $ajax_btn.on('click', loadMovieData);
+
+    // 버튼 트리거(방아쇠를 빵 땅기는 일)
+    $ajax_btn.trigger('click');
     // 비동기 통신을 수행할 헨들러(함수) 작성
     function loadMovieData() {
       // naver_movie_api[page] 정보 값이 더 이상 존재하지 않는다면
@@ -196,6 +200,7 @@
           </a>\
         </li>');
         html_code += $template[0].outerHTML;
+        window.setTimeout(setDetectionHeight, 0);
       });
 
       // console.log('$movie_list:', $movie_list);
@@ -207,6 +212,37 @@
         return old_html + html_code;
       });
     }
+
+    var document_height;
+    var detection_height;
+
+    function setDetectionHeight() {
+      document_height = $document.outerHeight(true);
+      detection_height = document_height - $window.height();
+    }
+
+    // jQuery 스크롤 이벤트 감지
+    var $window   = $(window);
+    var $document = $(document);
+    // var document_height = $document.outerHeight(true);
+    // var detection_height = document_height - $window.height();
+    $window.on('scroll', function (e) {
+      // .height()          === content-box hegiht
+      // .innerHeight()     === include padding
+      // .outerHeight()     === include border
+      // .outerHeight(true) === include margin
+      setDetectionHeight();
+      // console.log('문서의 높이:',document_height);
+      // console.log('감지할 높이:',detection_height - 200);
+      // console.log('스크롤 높이:',$window.scrollTop());
+      if ( detection_height === $window.scrollTop() ) {
+      // if ( (detection_height - 200) <= $window.scrollTop() ) {
+        // console.log('문서의 끝에서 200px 위에 도달했습니다.');
+        console.log('문서의 끝에 도달했습니다.');
+        loadMovieData();
+      }
+    });
+
   });
 </script>
 </body>
