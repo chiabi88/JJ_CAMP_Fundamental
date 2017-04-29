@@ -4,8 +4,93 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   <title>Ajax 비동기 통신 - API 활용</title>
+  <style>
+    html {
+      font-size: 10px;
+    }
+    body {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .container {
+      width: 90vw;
+      min-width: 960px;
+      margin-top: 3rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-size: 1.45rem;
+    }
+    .button.is-ajax-call {
+      border-radius: 3px;
+      padding: 0.56rem 0.85rem;
+      background: #fc414b;
+      color: #fff;
+    }
+    .movie-list {
+      list-style: none;
+      border-radius: 4px;
+      margin-top: 3rem;
+      padding: 2rem;
+      border: 4px solid #fc414b;
+    }
+    .movie-list__item {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #fc4a54;
+    }
+    .movie-list__item a {
+      display: block;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fc414b;
+    }
+    .movie-poster {
+      float: left;
+      margin-right: 1.4rem;
+    }
+    .movie-title {
+      margin: 0;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #efb9ba;
+    }
+    .movie-subtitle {
+      margin: 0;
+      font-weight: 200;
+    }
+    .movie-pubdate {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #676767;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="container">
+    <!-- 비동기 통신으로 무비 데이터 요청 버튼 -->
+    <button type="button" class="button is-ajax-call">NAVER 영화 데이터 GET</button>
+    <!-- 무비 리스트 출력 -->
+    <ul class="movie-list">
+      <!-- 전송받은 데이터를 출력할 템플릿 -->
+      <li class="movie-list__item">
+        <a target="_blank" href="http://movie.naver.com/movie/bi/mi/basic.nhn?code=154689">
+          <img
+            class="movie-poster"
+            src="http://imgmovie.naver.com/mdi/mit110/1546/154689_P01_154227.jpg" alt>
+          <h3 class="movie-title">닌자<b>고양이</b></h3>
+          <h4 class="movie-subtitle">猫忍</h4>
+          <sub class="movie-pubdate">2017</sub>
+        </a>
+      </li>
+    </ul>
+  </div>
 
 <script src="../../Library/jquery-3.2.1.min.js"></script>
 <script>
@@ -21,15 +106,15 @@
     // $는 안정적으로 jQuery를 가리킨다.
 
     // jQuery Version 검증
-    console.log('$().jquery:', $().jquery);
+    // console.log('$().jquery:', $().jquery);
 
     // jQuery.ajax() 메서드 API 확인
 
     // 단축 메서드
     // http://api.jquery.com/jQuery.get/
-    $.get( naver_movie_api[0], function(response) {
-      console.log(1, response.items);
-    } );
+    // $.get( naver_movie_api[0], function(response) {
+    //   console.log(1, response.items);
+    // } );
 
     // $.ajax() 메서드
     // http://api.jquery.com/jQuery.ajax/
