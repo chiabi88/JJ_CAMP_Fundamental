@@ -202,5 +202,5 @@ $.ajax({
 - 좌, west
 - 중앙, center
 
-`https://unsplash.it/240/240/?image=349&gravity=east`
+`https://unsplash.it/240/240/?image=349&gravity=east`<br>
 `https://unsplash.it/240/240/?image=349&gravity=center`
