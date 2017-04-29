@@ -23,10 +23,10 @@
 <script>
   $('.ajax-call-button').on('click', function() {
     $.get('https://unsplash.it/list')
-     .done(function(data) {
-      $.each(data, function(index, item) {
-        console.log(item.author);
-      })
+     .then(function(data) {
+       $.each(data, function(index, item) {
+         console.log(item);
+       });
      });
   })
 </script>
